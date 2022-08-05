@@ -1,21 +1,32 @@
 """Forms for adopt app."""
 
 from flask_wtf import FlaskForm
-from wtforms import StringField, FloatField, BooleanField, SelectField
-from wtforms.validators import InputRequired, Optional
+from wtforms import StringField, FloatField, BooleanField, SelectField, RadioField
+from wtforms.validators import InputRequired, Optional, URL
 
 class AddPetForm(FlaskForm):
+    """Add Pet Form"""
 
-    name = StringField('Name:', validators=[InputRequired()])
+    name = SelectField('Name:', validators=[InputRequired()],
+                        choices=[('cat','Cat'),
+                                ('dog','Dog'),
+                                ('porcupine','Porcupine')])
     species = StringField('Species:', validators=[InputRequired()])
-    photo_url = StringField('Photo URL:', validators=[InputRequired()])
+    photo_url = StringField('Photo URL:', validators=[Optional(), URL()])
     age = SelectField('Age:', choices=[('baby','Baby'),
                                        ('young','Young'),
                                        ('adult','Adult'),
                                        ('senior','Senior')])
                     # Way to force user to actively select?
     notes = StringField('Notes:', validators=[Optional()])
-    
-    def validate_name(form, field):
-        if len(field.data) > 5:
-            raise ValidationError('Shorter input please!')
+
+
+class EditPetForm(FlaskForm):
+    """Edit Pet Form"""
+
+    photo_url = StringField('Photo URL:', validators=[Optional(), URL()])
+    notes = StringField('Notes:', validators=[Optional()])
+    available = RadioField('Available:', choices=[(False,'No'),(True,'Yes')],
+                            coerce=bool)
+
+

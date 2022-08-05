@@ -8,7 +8,8 @@
     {% if pet.available %}
 
     <li><img src="{{pet.photo_url}}" alt="pet-pic" width="100px">
-      {{ pet.name }} is <b>available</b></li>
+      {{ pet.name }} is <b>available</b>
+      <button><a href='/{{pet.id}}'>See the pet!</a></button></li>
 
     {% else %}
 

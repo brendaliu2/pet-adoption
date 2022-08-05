@@ -29,7 +29,7 @@ class Pet(db.Model):
     species = db.Column(db.Text,
                         nullable = False)
     photo_url = db.Column(db.Text,
-                        nullable = False)
+                        nullable = True)
     age = db.Column(db.Text,
                     nullable = False)
     notes = db.Column(db.Text)
