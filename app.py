@@ -35,7 +35,9 @@ def show_homepage():
     return render_template('home.html', pets = pets)
 
 @app.route('/add', methods = ['GET','POST'])
-def handle_add_pet_form():
+def add_pet():
+    """Handles add pet form and redirects back to home page if successful
+        otherwise, rerender add form"""
 
     form = AddPetForm()
 
@@ -55,7 +57,7 @@ def handle_add_pet_form():
         db.session.add(new_pet)
         db.session.commit()
 
-        #how to rerender form if doesn't validate?
+# flash message
 
         return redirect('/')
 
@@ -64,7 +66,9 @@ def handle_add_pet_form():
 
 
 @app.route('/<int:pet_id_number>', methods = ['GET','POST'])
-def handle_edit_pet(pet_id_number):
+def edit_pet(pet_id_number):
+    """Handles edit pet form and redirects back to pet page if successful
+        otherwise, rerender add form"""
 
     pet = Pet.query.get_or_404(pet_id_number)
     form = EditPetForm(obj=pet)
@@ -72,7 +76,9 @@ def handle_edit_pet(pet_id_number):
     if form.validate_on_submit():
         pet.photo_url = form.photo_url.data
         pet.notes = form.notes.data
-        pet.available = booleform.available.data
+        pet.available = form.available.data
+        # eval converts return False string into boolean, is there another way?
+        # eval huge security risk!!!
 
         db.session.commit()
         flash(f'Pet {pet.name} updated!')
@@ -80,7 +86,6 @@ def handle_edit_pet(pet_id_number):
         return redirect(f'/{pet_id_number}')
 
     else:
-        #return render_template(f'/{pet_id_number}', form=form)
         return render_template('edit.html', form=form, pet=pet)
 
 
