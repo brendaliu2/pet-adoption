@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+<ul>
+  {% for pet in pets %}
+    {% if pet.available %}
+
+    <li><img src="{{pet.photo_url}}" alt="pet-pic" width="100px">
+      {{ pet.name }} is <b>available</b></li>
+
+    {% else %}
+
+    <li><img src="{{pet.photo_url}}" alt="pet-pic" width="100px">
+      {{ pet.name }} is not available </li>
+
+    {% endif %}
+  {% endfor %}
+</ul>
+
+{% endblock %}
