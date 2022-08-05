@@ -86,7 +86,7 @@ def edit_pet(pet_id_number):
         return redirect(f'/{pet_id_number}')
 
     else:
-        return render_template('edit.html', form=form, pet=pet)
+            return render_template('edit.html', form=form, pet=pet)
 
 
 
