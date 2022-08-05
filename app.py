@@ -21,7 +21,7 @@ db.create_all()
 # Having the Debug Toolbar show redirects explicitly is often useful;
 # however, if you want to turn it off, you can uncomment this line:
 #
-# app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
+app.config['DEBUG_TB_INTERCEPT_REDIRECTS'] = False
 
 toolbar = DebugToolbarExtension(app)
 
@@ -72,7 +72,7 @@ def handle_edit_pet(pet_id_number):
     if form.validate_on_submit():
         pet.photo_url = form.photo_url.data
         pet.notes = form.notes.data
-        pet.available = form.available.data
+        pet.available = booleform.available.data
 
         db.session.commit()
         flash(f'Pet {pet.name} updated!')
@@ -80,7 +80,8 @@ def handle_edit_pet(pet_id_number):
         return redirect(f'/{pet_id_number}')
 
     else:
-        return render_template(f'/{pet_id_number}', form=form)
+        #return render_template(f'/{pet_id_number}', form=form)
+        return render_template('edit.html', form=form, pet=pet)
 
 
 
