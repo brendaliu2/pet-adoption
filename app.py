@@ -8,6 +8,11 @@ from models import db, connect_db, Pet
 
 from forms import AddPetForm, EditPetForm
 
+import os
+
+PETFINDER_API_KEY = os.environ['PETFINDER_API_KEY']
+PETFINDER_SECRET_KEY = os.environ['PETFINDER_SECRET_KEY']
+
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = "secret"
